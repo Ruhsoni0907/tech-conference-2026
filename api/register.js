@@ -1,5 +1,7 @@
+const SUPABASE_URL = 'https://gesldpjrpskimhxbgyzr.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_4KTsIJ8q88Lt0sYYiD1KnA_98mV0';
+
 export default async function handler(req, res) {
-    // CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -14,43 +16,46 @@ export default async function handler(req, res) {
 
     const { fullName, email, phone, organization, jobTitle, dietary, submittedAt } = req.body;
 
-    // Validate required fields
     if (!fullName || !email) {
         return res.status(400).json({ error: 'Full name and email are required' });
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         return res.status(400).json({ error: 'Invalid email address' });
     }
 
     try {
-        // Log registration (in production, save to database or send email)
-        console.log('New Registration:', {
-            fullName,
-            email,
-            phone,
-            organization,
-            jobTitle,
-            dietary,
-            submittedAt: submittedAt || new Date().toISOString()
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/registrations`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+                full_name: fullName,
+                email: email,
+                phone: phone || null,
+                organization: organization || null,
+                job_title: jobTitle || null,
+                dietary: dietary || null,
+                submitted_at: submittedAt || new Date().toISOString()
+            })
         });
 
-        // Here you can integrate with:
-        // - SendGrid/Mailgun for emails
-        // - Supabase/PlanetScale for database
-        // - Slack/Discord for notifications
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error('Supabase error:', data);
+            return res.status(500).json({ error: 'Failed to save registration' });
+        }
 
         return res.status(200).json({
             success: true,
             message: 'Registration successful! You will receive a confirmation email shortly.',
-            data: {
-                id: Date.now().toString(36),
-                fullName,
-                email,
-                submittedAt: submittedAt || new Date().toISOString()
-            }
+            data: data[0]
         });
     } catch (error) {
         console.error('Registration error:', error);

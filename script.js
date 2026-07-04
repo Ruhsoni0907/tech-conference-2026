@@ -270,9 +270,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     submittedAt: new Date().toISOString()
                 };
 
-                // Submit to configured provider
-                if (typeof FormHandler !== 'undefined') {
-                    await FormHandler.submit(formData);
+                // Submit to API
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Registration failed');
                 }
 
                 // Track registration event
