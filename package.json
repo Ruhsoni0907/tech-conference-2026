@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Tech Conference 2026 - Official Website",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "dev": "live-server --port=3000",
     "build": "echo 'Static site - no build needed'",
