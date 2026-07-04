@@ -8,3 +8,5 @@ build/
 .cache/
 .vercel/
 .netlify/
+
+.vercel

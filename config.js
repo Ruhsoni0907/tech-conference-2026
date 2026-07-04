@@ -4,7 +4,7 @@
 const CONFIG = {
     // API Endpoint for form submissions
     // Options: 'formspree', 'emailjs', 'custom'
-    FORM_PROVIDER: 'formspree',
+    FORM_PROVIDER: 'custom',
 
     // Formspree Configuration
     FORMSPREE_ENDPOINT: 'https://formspree.io/f/YOUR_FORM_ID',
