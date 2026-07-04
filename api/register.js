@@ -52,6 +52,27 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: 'Failed to save registration' });
         }
 
+        // Send notification email to you via FormSubmit
+        try {
+            await fetch('https://formsubmit.co/ajax/rajsoni999.r@gmail.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: `New Registration: ${fullName} - TechConf 2026`,
+                    _template: 'table',
+                    name: fullName,
+                    email: email,
+                    phone: phone || 'Not provided',
+                    organization: organization || 'Not provided',
+                    job_title: jobTitle || 'Not provided',
+                    dietary: dietary || 'None',
+                    submitted_at: submittedAt || new Date().toISOString()
+                })
+            });
+        } catch (emailError) {
+            console.error('Email notification failed:', emailError);
+        }
+
         return res.status(200).json({
             success: true,
             message: 'Registration successful! You will receive a confirmation email shortly.',

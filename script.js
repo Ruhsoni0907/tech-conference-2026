@@ -283,28 +283,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error(result.error || 'Registration failed');
                 }
 
-                // Send confirmation email via Web3Forms
+                // Send confirmation email via FormSubmit
                 try {
-                    const firstName = formData.fullName.split(' ')[0];
-                    await fetch('https://api.web3forms.com/submit', {
+                    await fetch('https://formsubmit.co/ajax/rajsoni999.r@gmail.com', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                         body: JSON.stringify({
-                            access_key: '7d075c7e-c1e4-4a25-a564-3d1fc8c34596',
-                            subject: 'Registration Confirmed - TechConf 2026',
-                            from_name: 'TechConf 2026',
-                            to_email: formData.email,
+                            _subject: 'New Registration - TechConf 2026',
+                            _template: 'table',
                             name: formData.fullName,
                             email: formData.email,
                             phone: formData.phone || 'Not provided',
                             organization: formData.organization || 'Not provided',
                             job_title: formData.jobTitle || 'Not provided',
                             dietary: formData.dietary || 'None',
-                            message: `New registration received from ${formData.fullName} (${formData.email})`
+                            submitted_at: formData.submittedAt
                         })
                     });
                 } catch (emailError) {
-                    console.log('Email sending failed but registration saved:', emailError);
+                    console.log('Email notification failed but registration saved:', emailError);
                 }
 
                 // Track registration event
