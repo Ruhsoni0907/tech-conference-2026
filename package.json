@@ -1,0 +1,26 @@
+{
+  "name": "tech-conference-2026",
+  "version": "1.0.0",
+  "description": "Tech Conference 2026 - Official Website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000",
+    "build": "echo 'Static site - no build needed'",
+    "minify": "terser script.js -o script.min.js -c -m && cleancss styles.css -o styles.min.css",
+    "lint": "eslint script.js",
+    "preview": "live-server --port=8080"
+  },
+  "keywords": [
+    "tech-conference",
+    "2026",
+    "conference-website"
+  ],
+  "author": "TechConf 2026",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "terser": "^5.31.0",
+    "clean-css-cli": "^5.6.3",
+    "eslint": "^8.57.0"
+  }
+}

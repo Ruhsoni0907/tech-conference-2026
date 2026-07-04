@@ -1,0 +1,14 @@
+# Robots.txt for Tech Conference 2026
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://techconf2026.com/sitemap.xml
+
+# Disallow admin/private paths
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.env
+
+# Crawl-delay
+Crawl-delay: 1
