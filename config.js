@@ -21,7 +21,7 @@ const CONFIG = {
     GA_MEASUREMENT_ID: '', // Replace with your GA ID
 
     // Site URL
-    SITE_URL: 'https://techconf2026.com'
+    SITE_URL: 'https://tech-conference-2026.vercel.app'
 };
 
 // Form Submission Handler

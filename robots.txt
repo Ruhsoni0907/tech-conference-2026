@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://techconf2026.com/sitemap.xml
+Sitemap: https://tech-conference-2026.vercel.app/sitemap.xml
 
 # Disallow admin/private paths
 Disallow: /admin/
